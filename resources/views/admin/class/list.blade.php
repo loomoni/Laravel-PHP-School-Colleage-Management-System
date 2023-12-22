@@ -3,16 +3,16 @@
   
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
+    <!-- Content Header (Page header)  -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Admin List (Total: {{ $getRecord->total() }}) </h1>
+            <h1>Class List</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <a href="{{ url('admin/admin/add') }}" class="btn btn-primary">Add New Admin</a>
+              <a href="{{ url('admin/class/add') }}" class="btn btn-primary">Add New Class</a>
             </ol>
           </div>
         </div>
@@ -28,28 +28,23 @@
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Search Admin</h3>
+                <h3 class="card-title">Search Class</h3>
               </div>
               <!-- form start -->
                 <form action="" method="GET">
                   <div class="card-body">
                     <div class="row">
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-4">
                           <label for="name">Name</label>
                           <input type="text" class="form-control" name="name" value="{{ Request::get('name') }}" placeholder="Enter Name">
                         </div>
-                        <div class="form-group col-md-3">
-                          <label for="email">Email</label>
-                          <input type="text" class="form-control" name="email" value="{{ Request::get('email') }}" placeholder="Enter email">
-                        </div>
-
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-4">
                           <label for="date">Date</label>
                           <input type="date" class="form-control" name="date" value="{{ Request::get('date') }}" placeholder="Date">
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-4">
                            <button type="submit" class="btn btn-primary" style="margin-top: 30px; width: 100px">Search</button>
-                           <a href="{{ url('admin/admin/list') }}" class="btn btn-success" style="margin-top: 30px; width: 100px">Clear</a>
+                           <a href="{{ url('admin/class/list') }}" class="btn btn-success" style="margin-top: 30px;  width: 100px">Clear</a>
                         </div>
                     </div>
                   </div>
@@ -60,7 +55,7 @@
             @include('_message')
             <div class="card">
               <div class="card-header">
-                <h3 class="card-title">Admin List</h3>
+                <h3 class="card-title">Classes List</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body p-0">
@@ -69,23 +64,33 @@
                     <tr>
                       <th>#</th>
                       <th>Name</th>
-                      <th>Email</th>
+                      <th>Status</th>
+                      <th>Created By</th>
                       <th>Created Date</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
+                    <?php $index = 0 ?>
                    @foreach ($getRecord as $value)
-                      <tr>
-                        <td>{{ $value->id }}</td>
-                        <td>{{ $value->name }}</td>
-                        <td>{{ $value->email }}</td>
-                        <td>{{ date('d-m-Y H:i A', ), strtotime($value->created_at)}}</td>
-                        <td>
-                          <a href="{{ url('admin/admin/edit', $value->id)}}" class="btn btn-primary">Edit</a>
-                          <a href="{{ url('admin/admin/delete', $value->id)}}" class="btn btn-danger">Delete</a>
+                   <?php $index++ ?>
+                     <tr>
+                       <td>{{ $index }}</td>
+                       <td>{{ $value->name }}</td>
+                       <td>
+                          @if ($value->status == 0)
+                            Active
+                          @else
+                            Inactive
+                          @endif
                         </td>
-                      </tr>
+                       <td>{{ $value->created_by_name }}</td>
+                       <td>{{ date('d-m-Y H:i A', strtotime($value->created_at)) }}</td>
+                       <td>
+                         <a href="{{ url('admin/class/edit', $value->id) }}" class="btn btn-primary">Edit</a>
+                         <a href="{{ url('admin/class/delete',  $value->id) }}" class="btn btn-danger">Delete</a>
+                       </td>
+                     </tr>
                    @endforeach
                   </tbody>
                 </table>
