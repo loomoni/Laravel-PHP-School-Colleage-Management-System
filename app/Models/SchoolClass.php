@@ -35,6 +35,5 @@ class SchoolClass extends Model
     static public function getSingleClass($id)
     {
         return self::find($id);
-
     }
 }
