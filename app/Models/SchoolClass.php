@@ -36,4 +36,17 @@ class SchoolClass extends Model
     {
         return self::find($id);
     }
+
+    static public function getClassToAssign()
+    {
+      $return = SchoolClass::select('school_classes.*')
+                ->join('users', 'users.id', 'school_classes.created_by')
+                ->where('school_classes.is_delete', '=', '0')
+                ->where('school_classes.status', '=', '0')
+                ->orderBy('school_classes.name', 'asc')
+                ->get();
+
+      return $return;
+    }
+
 }
