@@ -86,24 +86,27 @@ class ClassSubjectController extends Controller
     {
         ClassSubject::deleteSubject($request->classs_id);
 
-        foreach($request->subject_id as $subject_id)
-            {
-                $getAlreadyFirst = ClassSubject::getAlreadyFirst($request->class_id, $subject_id);
-                if(!empty($getAlreadyFirst))
+        if(!empty($request->subject_id))
+          {
+            foreach($request->subject_id as $subject_id)
                 {
-                    $getAlreadyFirst->status = $request->status;
-                    $getAlreadyFirst->save();
+                    $getAlreadyFirst = ClassSubject::getAlreadyFirst($request->class_id, $subject_id);
+                    if(!empty($getAlreadyFirst))
+                    {
+                        $getAlreadyFirst->status = $request->status;
+                        $getAlreadyFirst->save();
+                    }
+                    else
+                    {
+                        $save = new ClassSubject;
+                        $save->class_id = $request->class_id;
+                        $save->subject_id = $subject_id;
+                        $save->status = $request->status;
+                        $save->created_by = Auth::user()->id;
+                        $save->save();
+                    }
+                    
                 }
-                else
-                {
-                    $save = new ClassSubject;
-                    $save->class_id = $request->class_id;
-                    $save->subject_id = $subject_id;
-                    $save->status = $request->status;
-                    $save->created_by = Auth::user()->id;
-                    $save->save();
-                }
-                
             }
 
             return redirect('admin/assign_subject/list')->with('success', 'Subject assign update successfully');
@@ -119,5 +122,37 @@ class ClassSubjectController extends Controller
         $data->save();
 
         return redirect(url('admin/assign_subject/list'))->with('success', 'Class subject assign Deleted successfully');
+    }
+
+    public function editSingle($id)
+    {
+        $getRecord = ClassSubject::getSingleClassSubjectAssign($id);
+        if(!empty($getRecord))
+        {
+            $data['getRecord'] = $getRecord;
+            $data['header_title'] = "Edit Assign Subject";
+            $data['getClass'] = SchoolClass::getClassToAssign();
+            $data['getSubjects'] = Subject::getSubjectToAssign();
+            return view('admin.assign_subject.edit_single', $data);
+        }
+
+        else
+        {
+            abort(404);
+        }
+    }
+
+    public function updateSingle(Request $request, $id)
+    {
+    
+
+            $save = ClassSubject::getSingleClassSubjectAssign($id);
+            $save->class_id = $request->class_id;
+            $save->subject_id = $request->subject_id;
+            $save->status = $request->status;
+            $save->created_by = Auth::user()->id;
+            $save->save();
+
+            return redirect('admin/assign_subject/list')->with('success', 'Subject assign update successfully');
     }
 }

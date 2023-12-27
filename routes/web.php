@@ -65,6 +65,8 @@ Route::group(['middleware' => 'admin'], function() {
   Route::post('admin/assign_subject/add', [ClassSubjectController::class, 'insert']);
   Route::get('admin/assign_subject/edit/{id}', [ClassSubjectController::class, 'edit']);
   Route::post('admin/assign_subject/edit/{id}', [ClassSubjectController::class, 'update']);
+  Route::get('admin/assign_subject/edit_single/{id}', [ClassSubjectController::class, 'editSingle']);
+  Route::post('admin/assign_subject/edit_single/{id}', [ClassSubjectController::class, 'updateSingle']);
   Route::get('admin/assign_subject/delete/{id}', [ClassSubjectController::class, 'delete']);
     
 });
