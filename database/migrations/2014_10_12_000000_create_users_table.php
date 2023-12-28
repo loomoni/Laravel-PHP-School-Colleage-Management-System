@@ -14,7 +14,22 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('last_name');
             $table->string('email')->unique();
+            $table->string('admission_number');
+            $table->string('roll_number');
+            $table->integer('class_id');
+            $table->string('gender');
+            $table->date('date_of_birth');
+            $table->string('caste');
+            $table->string('religion');
+            $table->string('mobile_number');
+            $table->date('admission_date');
+            $table->string('profile_pic');
+            $table->string('blood_group');
+            $table->string('height');
+            $table->string('weight');
+            $table->tinyInteger('status')->default(0)->comment('0: Active, 1: In active');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
