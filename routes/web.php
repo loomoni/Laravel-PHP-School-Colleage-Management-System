@@ -6,6 +6,7 @@ use App\Http\Controllers\ClassController;
 use App\Http\Controllers\ClassSubjectController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -68,21 +69,35 @@ Route::group(['middleware' => 'admin'], function() {
   Route::get('admin/assign_subject/edit_single/{id}', [ClassSubjectController::class, 'editSingle']);
   Route::post('admin/assign_subject/edit_single/{id}', [ClassSubjectController::class, 'updateSingle']);
   Route::get('admin/assign_subject/delete/{id}', [ClassSubjectController::class, 'delete']);
+
+  // Change password Route
+  Route::get('admin/change_password', [UserController::class, 'changePassword']);
+  Route::post('admin/change_password', [UserController::class, 'updateChangePassword']);
     
 });
 
 Route::group(['middleware' => 'teacher'], function() {
   Route::get('teacher/dashboard', [DashboardController::class, 'dashboard']);
 
+    // Change password Route
+    Route::get('teacher/change_password', [UserController::class, 'changePassword']);
+    Route::post('teacher/change_password', [UserController::class, 'updateChangePassword']);
+
 });
 
 Route::group(['middleware' => 'student'], function() {
   Route::get('student/dashboard', [DashboardController::class, 'dashboard']);
+
+  // Change password Route
+  Route::get('student/change_password', [UserController::class, 'changePassword']);
+  Route::post('student/change_password', [UserController::class, 'updateChangePassword']);
 
 });
 
 Route::group(['middleware' => 'parent'], function() {
   Route::get('parent/dashboard', [DashboardController::class, 'dashboard']);
 
-
+  // Change password Route
+  Route::get('parent/change_password', [UserController::class, 'changePassword']);
+  Route::post('parent/change_password', [UserController::class, 'updateChangePassword']);
 });
