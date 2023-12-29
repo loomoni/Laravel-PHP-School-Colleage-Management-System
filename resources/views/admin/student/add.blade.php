@@ -24,7 +24,7 @@
             <!-- general form elements -->
             <div class="card card-primary">
               <!-- form start -->
-              <form action="" method="POST">
+              <form action="" method="POST" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="card-body">
                     <div class="row">
@@ -48,6 +48,9 @@
                             <label for="class">Class<span style="color: red"> *</span></label>
                             <select class="form-control" required name="class_id">
                                 <option value="">Select Class</option>
+                                @foreach ($getClass as $class)
+                                    <option value="{{ $class->id }}">{{$class->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group  col-6">
@@ -85,7 +88,7 @@
                         </div>
                         <div class="form-group  col-6">
                             <label for="blood_group">Blood Group<span style="color: red"> </span></label>
-                            <input type="file" class="form-control" name="blood_group" value="{{ old('blood_group')}}"  placeholder="Blood Group">
+                            <input type="text" class="form-control" name="blood_group" value="{{ old('blood_group')}}"  placeholder="Blood Group">
                         </div>
                         <div class="form-group  col-6">
                             <label for="height">Height<span style="color: red"> </span></label>

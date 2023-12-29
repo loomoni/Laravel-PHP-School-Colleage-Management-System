@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('last_name');
+            $table->string('user_type')->default(4);
             $table->string('email')->unique();
             $table->string('admission_number');
             $table->string('roll_number');
@@ -29,6 +30,7 @@ return new class extends Migration
             $table->string('blood_group');
             $table->string('height');
             $table->string('weight');
+            $table->string('is_delete')->default(0);
             $table->tinyInteger('status')->default(0)->comment('0: Active, 1: In active');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
