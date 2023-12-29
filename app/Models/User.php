@@ -99,9 +99,21 @@ class User extends Authenticatable
         return $return;
     }
 
-    static public function getSingleAdmin($id)
+    static public function getSingle($id)
     {
         return self::find($id);
+    }
+
+    public function getProfile()
+    {
+        if(!empty($this->profile_pic) && file_exists('upload/profile/'.$this->profile_pic))
+        {
+            return url('upload/profile/'.$this->profile_pic);
+        }
+        else
+        {
+            return "";
+        }
     }
 
 

@@ -41,7 +41,7 @@ class AdminController extends Controller
     public function edit($id)
     {
      
-        $data['getRecord'] = User::getSingleAdmin($id);
+        $data['getRecord'] = User::getSingle($id);
         if(!empty($data['getRecord']))
         {
             $data['header_title'] = "Edit Admin";
@@ -59,7 +59,7 @@ class AdminController extends Controller
         request()->validate([
             'email' => 'required|email|unique:users,email,'.$id
         ]);
-        $user = User::getSingleAdmin($id);
+        $user = User::getSingle($id);
         $user->name = trim($request->name);
         $user->email = trim($request->email);
         if(!empty($request->password))
@@ -72,7 +72,7 @@ class AdminController extends Controller
 
     public function delete($id)
     {
-        $user = User::getSingleAdmin($id);
+        $user = User::getSingle($id);
         $user->is_delete = 1;
         $user->save();
         return redirect(url('admin/admin/list'))->with('error', 'Admin deleted successfully');
