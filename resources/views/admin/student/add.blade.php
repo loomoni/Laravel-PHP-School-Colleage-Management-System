@@ -113,7 +113,7 @@
                             <div style="color: red">{{ $errors->first('weight') }}</div>
                         </div>
                         <div class="form-group  col-6">
-                            <label for="status">Gender<span style="color: red"> *</span></label>
+                            <label for="status">Status<span style="color: red"> *</span></label>
                             <select class="form-control" required name="status">
                                 <option {{ ( old('status') == 0) ? 'selected' : '' }} value="0">Active</option>
                                 <option {{ ( old('status') == 1) ? 'selected' : '' }} value="1">Inactive</option>
