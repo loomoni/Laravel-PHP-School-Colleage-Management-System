@@ -30,6 +30,8 @@ return new class extends Migration
             $table->string('blood_group');
             $table->string('height');
             $table->string('weight');
+            $table->string('occupation');
+            $table->string('address');
             $table->string('is_delete')->default(0);
             $table->tinyInteger('status')->default(0)->comment('0: Active, 1: In active');
             $table->timestamp('email_verified_at')->nullable();
