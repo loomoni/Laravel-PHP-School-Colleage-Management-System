@@ -105,9 +105,10 @@
                           @endif
                           </td>
                         <td>{{ date('d-m-Y H:i A', ), strtotime($value->created_at)}}</td>
-                        <td>
-                          <a href="{{ url('admin/parent/edit', $value->id)}}" class="btn btn-primary">Edit</a>
-                          <a href="{{ url('admin/parent/delete', $value->id)}}" class="btn btn-danger">Delete</a>
+                        <td style="white-space: nowrap;">
+                          <a href="{{ url('admin/parent/edit', $value->id)}}" class="btn btn-primary"  style="display: inline-block; margin-right: 2px;">Edit</a>
+                          <a href="{{ url('admin/parent/delete', $value->id)}}" class="btn btn-danger" style="display: inline-block; margin-right: 2px;">Delete</a>
+                          <a href="{{ url('admin/parent/my-student', $value->id)}}" class="btn btn-primary" style="display: inline-block;">My Student</a>
                         </td>
                       </tr>
                    @endforeach
